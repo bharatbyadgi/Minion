@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/conversation_page_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="55dp"
+        android:clipChildren="false" />
+
+    <EditText
+        android:id="@+id/add_message"
+        android:layout_width="318dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:hint="Add Message" />
+
+    <Button
+        android:id="@+id/send_message"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:drawableRight="@android:drawable/ic_menu_send"
+        android:text="Send" />
+
+</RelativeLayout>

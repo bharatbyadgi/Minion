@@ -1,0 +1,166 @@
+{
+  "postAsset": [
+    {
+      "displayName": "Asset Name",
+      "key": "name"
+    },
+    {
+      "displayName": "Asset Description",
+      "key": "description"
+    },
+    {
+      "displayName": "Asset Make",
+      "key": "make"
+    },
+    {
+      "displayName": "Asset Model",
+      "key": "model"
+    },
+    {
+      "displayName": "Properties",
+      "key": "addlProperties-length"
+    },
+    {
+      "displayName": "Asset Movability",
+      "key": "movable"
+    }
+  ],
+  "postEvent": [
+    {
+      "displayName": "Event Name",
+      "key": "eventName"
+    },
+    {
+      "displayName": "Event Description",
+      "key": "description"
+    },
+    {
+      "displayName": "dummy",
+      "key": "eventCreator"
+    },
+    {
+      "displayName": "Event Time",
+      "key": "eventCreatedTime"
+    },
+    {
+      "displayName": "Event Expiry",
+      "key": "eventExpiryInDays"
+    },
+    {
+      "displayName": "Event Type",
+      "key": "eventTypeID"
+    }
+  ],
+  "postFacility": [
+    {
+      "displayName": "Facility Name",
+      "key": "name"
+    },
+    {
+      "displayName": "Facility Description",
+      "key": "description"
+    },
+    {
+      "displayName": "Facility Id",
+      "key": "facilityTypeID"
+    },
+    {
+      "displayName": "Properties",
+      "key": "technicalSpecs-"
+    }
+  ],
+  "postUser": [
+    {
+      "displayName": "First Name",
+      "key": "firstName"
+    },
+    {
+      "displayName": "Last Name",
+      "key": "lastName"
+    },
+    {
+      "displayName": "Email",
+      "key": "email"
+    },
+    {
+      "displayName": "Username",
+      "key": "username"
+    }
+  ],
+  "postAttachAmc": [
+    {
+      "displayName": "Start Date",
+      "key": "startDate"
+    },
+    {
+      "displayName": "AssetId",
+      "key": "assetid"
+    },
+    {
+      "displayName": "End Date",
+      "key": "endDate"
+    },
+    {
+      "displayName": "Amount:Integer",
+      "key": "amt"
+    },
+    {
+      "displayName": "Vendor Name",
+      "key": "vendorName"
+    },
+    {
+      "displayName": "Description",
+      "key": "description"
+    },
+    {
+      "displayName": "Contact Person Name",
+      "key": "contactInfo-name"
+    },
+    {
+      "displayName": "Contact Email",
+      "key": "contactInfo-email"
+    },
+    {
+      "displayName": "Contact Phone:Integer",
+      "key": "contactInfo-phone"
+    },
+    {
+      "displayName": "Contact Alt. Phone:Integer",
+      "key": "contactInfo-alternatePhone"
+    }
+  ],
+  "postAddReport":[
+    {
+      "displayName": "Start Date",
+      "key": "startDate"
+    },
+    {
+      "displayName": "AmcID",
+      "key": "amcid"
+    },
+    {
+      "displayName": "End Date",
+      "key": "endDate"
+    },
+    {
+      "displayName": "Description",
+      "key": "description"
+    },
+    {
+      "displayName": "Contact Person Name",
+      "key": "contactInfo-name"
+    },
+    {
+      "displayName": "Contact Email",
+      "key": "contactInfo-email"
+    },
+    {
+      "displayName": "Contact Phone:Integer",
+      "key": "contactInfo-phone"
+    },
+    {
+      "displayName": "Contact Alt. Phone:Integer",
+      "key": "contactInfo-alternatePhone"
+    }
+  ]
+}

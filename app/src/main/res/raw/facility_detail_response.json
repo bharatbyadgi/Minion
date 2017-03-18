@@ -1,0 +1,25 @@
+{
+  "facilityDetails": [
+    {
+      "name": "swimming pool",
+      "facilityID": 43,
+      "facilityTypeID": 40,
+      "description": "for children",
+      "technicalSpecs": {
+        "length": "44",
+        "breadth": "11",
+        "IsCovered": "true"
+      }
+    },
+    {
+      "name": "Book Badminton Court",
+      "facilityID": 44,
+      "facilityTypeID": 40,
+      "description": null,
+      "technicalSpecs": {
+        "breadth": "cxdafdfdg",
+        "IsCovered": "true"
+      }
+    }
+  ]
+}

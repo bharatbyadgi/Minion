@@ -1,0 +1,73 @@
+{
+  "assetDetails": [
+    {
+      "assetid": 7,
+      "amcid": null,
+      "name": "Generator",
+      "description": "Kirloskar Generator",
+      "make": "Kirloskar",
+      "model": "2010",
+      "addlProperties": {
+        "weight": "400KG",
+        "height": "5ft"
+      },
+      "movable": false
+    },
+    {
+      "assetid": 12,
+      "amcid": null,
+      "name": "lamp",
+      "description": null,
+      "make": "mike",
+      "model": "2016",
+      "addlProperties": {},
+      "movable": false
+    },
+    {
+      "assetid": 14,
+      "amcid": null,
+      "name": "lift",
+      "description": "fastest lift",
+      "make": "guru",
+      "model": "2016-G",
+      "addlProperties": {
+        "weight": "400KG",
+        "height": "5ft"
+      },
+      "movable": false
+    },
+    {
+      "assetid": 1,
+      "amcid": "30",
+      "name": null,
+      "description": "AMC for Pearl Block Lift for year 2016-2017",
+      "make": null,
+      "model": null,
+      "addlProperties": {},
+      "movable": false
+    },
+    {
+      "assetid": 1,
+      "amcid": "31",
+      "name": null,
+      "description": "AMC for Pearl Block Lift for year 2016-2017",
+      "make": null,
+      "model": null,
+      "addlProperties": {},
+      "movable": false
+    },
+    {
+      "assetid": 15,
+      "amcid": null,
+      "name": "Generator",
+      "description": "Toyata Kirloskar Generator",
+      "make": "Toyota Kirloskar",
+      "model": "2010",
+      "addlProperties": {
+        "weight": "400KG",
+        "height": "5ft"
+      },
+      "movable": false
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "eventdetails": [
+    {
+      "eventID": 1,
+      "eventName": "Weekly Meetings",
+      "description": "Please attend weeekly meeting",
+      "eventCreator": "koppar",
+      "eventScheduleTime": "Fri Oct 15 18:30"
+    },
+    {
+      "eventID": 2,
+      "eventName": "Esteem Heritage Sports Event",
+      "description": "Get ready to flex your muscles. Get your sporting acumen showing. Participate in Sports Events on August 14",
+      "eventCreator": "koppar",
+      "eventScheduleTime": "Fri Oct 15 18:30"
+    }
+  ],
+  "facilityDetails": [
+    {
+      "name": "swimming pool",
+      "facilityID": 43,
+      "description": "for children",
+      "bookingId": "123",
+      "bookingTime": "Fri Oct 15 18:30"
+    },
+    {
+      "name": "Book Badminton Court",
+      "facilityID": 44,
+      "description": null,
+      "bookingId": "123",
+      "bookingTime": "Fri Oct 15 18:30"
+    }
+  ]
+}

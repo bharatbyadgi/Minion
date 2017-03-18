@@ -1,0 +1,181 @@
+{
+  "widgetType": [
+    {
+      "name": "Event",
+      "dataKey": "eventData",
+      "rank": 2
+    },
+    {
+      "name": "HomePage",
+      "dataKey": "homePageData",
+      "rank": 1
+    },
+    {
+      "name": "UserManagement",
+      "dataKey": "userManagementData",
+      "rank": 6
+    },
+    {
+      "name": "AccountManagement",
+      "dataKey": "accountManagementData",
+      "rank": 7
+    },
+    {
+      "name": "Facility",
+      "dataKey": "facilityData",
+      "rank": 5
+    },
+    {
+      "name": "AssetManagement",
+      "dataKey": "assetManagementData",
+      "rank": 3
+    },
+    {
+      "name": "FindVendor",
+      "dataKey": "findVendorData",
+      "rank": 8
+    },
+    {
+      "name": "MaintainenceInfo",
+      "dataKey": "maintenanceInfoData",
+      "rank": 12
+//    },
+//    {
+//      "name": "Photos",
+//      "dataKey": "photoData",
+//      "rank": 10
+    }
+  ],
+  "widgets": {
+    "homePageData": {
+      "name": "Home Page",
+      "widgetName": "HomePage",
+      "widgetUrl": "",
+      "inlineUrl": "",
+      "page": "homePage",
+      "module": "",
+      "hasSeeAll": false,
+      "hasInlineInfo": false
+    },
+    "userManagementData": {
+      "name": "Manage Users",
+      "widgetName": "UserManagement",
+      "widgetUrl": "",
+      "inlineUrl": "",
+      "page": "manageUser",
+      "module": "",
+      "hasSeeAll": false,
+      "hasInlineInfo": false
+    },
+    "accountManagementData": {
+      "name": "Manage Accounts",
+      "widgetName": "AccountManagement",
+      "widgetUrl": "",
+      "inlineUrl": "",
+      "page": "accounting",
+      "module": "",
+      "hasSeeAll": false,
+      "hasInlineInfo": false
+    },
+    "assetManagementData": {
+      "name": "Manage Asssets",
+      "widgetName": "AssetManagement",
+      "widgetUrl": "assetmgmt/api/ams/assets/v1",
+      "inlineUrl": "",
+      "page": "assets",
+      "module": "",
+      "hasInlineInfo": false,
+      "hasSeeAll": false
+    },
+    "photoData": {
+      "name": "Gallery",
+      "widgetName": "Photos",
+      "widgetUrl": "",
+      "inlineUrl": "/v1/landpage/display/photos",
+      "page": "photo",
+      "module": "/v1/landpage/display/topphotos",
+      "hasInlineInfo": false,
+      "hasSeeAll": true
+    },
+    "ad01Data": {
+      "name": "Sports Event",
+      "widgetName": "Banner",
+      "widgetUrl": "",
+      "inlineUrl": "sports",
+      "page": "",
+      "module": "",
+      "hasInlineInfo": false,
+      "hasSeeAll": false
+    },
+    "findVendorData": {
+      "name": "Search NearBy",
+      "widgetName": "FindVendor",
+      "widgetUrl": "/v1/findVendor",
+      "inlineUrl": "/v1/findVendorType",
+      "page": "vendor",
+      "module": "vendor",
+      "hasInlineInfo": false,
+      "hasSeeAll": false
+    },
+    "ad02Data": {
+      "name": "Election",
+      "widgetName": "Banner",
+      "widgetUrl": "",
+      "inlineUrl": "election",
+      "page": "election",
+      "module": "agm",
+      "hasInlineInfo": false,
+      "hasSeeAll": false
+    },
+    "facilityData": {
+      "name": "Book Facility",
+      "widgetName": "Facility",
+      "widgetUrl": "/v1/facility/facilitytype",
+      "inlineUrl": "/v1/facility/facilitytype",
+      "page": "facility",
+      "module": "Facility",
+      "hasInlineInfo": false,
+      "hasSeeAll": false
+    },
+    "ad03Data": {
+      "name": "Kids Event",
+      "widgetName": "Banner",
+      "widgetUrl": "",
+      "inlineUrl": "kidsevent",
+      "page": "",
+      "module": "",
+      "hasInlineInfo": false,
+      "hasSeeAll": false
+    },
+    "eventData": {
+      "name": "Forums",
+      "widgetName": "Event",
+      "widgetUrl": "events/api/ams/events/v1/events",
+      "inlineUrl": "/v1/topevents/{userId}",
+      "page": "event",
+      "module": "Events",
+      "hasInlineInfo": true,
+      "hasSeeAll": true
+    },
+    "eventTypeData": {
+      "name": "EventType",
+      "widgetName": "EventType",
+      "widgetUrl": "/v1/eventtype/koppar",
+      "inlineUrl": "",
+      "page": "",
+      "module": "",
+      "hasInlineInfo": false,
+      "hasSeeAll": false
+    },
+    "maintenanceInfoData": {
+      "name": "Maintainence Info",
+      "widgetName": "MaintainenceInfo",
+      "widgetUrl": "",
+      "inlineUrl": "/v1/landpage/maintainence/{userId}",
+      "page": "",
+      "module": "",
+      "hasInlineInfo": false,
+      "hasSeeAll": false
+    }
+  }
+}

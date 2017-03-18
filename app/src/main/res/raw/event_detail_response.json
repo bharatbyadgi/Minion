@@ -1,0 +1,48 @@
+{
+  "eventdetails": [
+    {
+      "eventID": 1,
+      "eventType": {
+        "eventTypeID": 543,
+        "eventTypeName": "Association",
+        "eventTypeDescription": null,
+        "associatedRoles": [
+          "101",
+          "102",
+          "103",
+          "104",
+          "105"
+        ],
+        "eventRank": "1"
+      },
+      "eventName": "Weekly Meetings",
+      "description": "Please attend weeekly meeting",
+      "eventCreator": "koppar",
+      "eventCreatedTime": "Fri Oct 15",
+      "eventExpiryInDays": 10,
+      "eventTypeID": 543
+    },
+    {
+      "eventID": 2,
+      "eventType": {
+        "eventTypeID": 544,
+        "eventTypeName": "CulturalCommittee",
+        "eventTypeDescription": null,
+        "associatedRoles": [
+          "101",
+          "102",
+          "103",
+          "104",
+          "105"
+        ],
+        "eventRank": "3"
+      },
+      "eventName": "Esteem Heritage Sports Event",
+      "description": "Get ready to flex your muscles. Get your sporting acumen showing. Participate in Sports Events on August 14",
+      "eventCreator": "koppar",
+      "eventCreatedTime": "Fri Jul 01",
+      "eventExpiryInDays": 32,
+      "eventTypeID": 544
+    }
+  ]
+}

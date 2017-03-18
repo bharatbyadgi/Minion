@@ -1,0 +1,12 @@
+{
+  "assetAmcDetails": [
+    {
+      "startDate": null,
+      "endDate": null,
+      "amt": 2000,
+      "vendorName": "Kirloskar Maintenance Pvt Ltd",
+      "phone": "1234567890",
+      "email": "abc@gmail.com"
+    }
+  ]
+}

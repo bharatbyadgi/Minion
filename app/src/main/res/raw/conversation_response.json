@@ -1,0 +1,39 @@
+{
+  "conversationArray": [{
+    "eventID": 66,
+    "conversationId": 2,
+    "latestMessage": "latest post",
+    "creator": "amsuser",
+    "createdTime": 1492854300000
+  }, {
+    "eventID": 66,
+    "conversationId": 3,
+    "latestMessage": "latest post 1",
+    "creator": "amsuser",
+    "createdTime": 1492854300000
+  }, {
+    "eventID": 66,
+    "conversationId": 5,
+    "latestMessage": "latest post 2",
+    "creator": "amsuser",
+    "createdTime": 1492854300000
+  }, {
+    "eventID": 66,
+    "conversationId": 6,
+    "latestMessage": "latest post 3",
+    "creator": "amsuser",
+    "createdTime": 1492854300000
+  }, {
+    "eventID": 66,
+    "conversationId": 7,
+    "latestMessage": "latest post 4",
+    "creator": "amsuser",
+    "createdTime": 1492854300000
+  }, {
+    "eventID": 66,
+    "conversationId": 8,
+    "latestMessage": "latest post 5",
+    "creator": "amsuser",
+    "createdTime": 1492854300000
+  }]
+}
