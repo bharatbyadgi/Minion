@@ -53,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mProgressDialog = new ProgressDialog(this);
         mSharedpref = new SharedPreferenceManager(this);
 
+        Log.i(TAG,"mSharedpref getUserSpecificTokenPreference: "+ mSharedpref.getUserSpecificTokenPreference());
         if (!TextUtils.isEmpty(mSharedpref.getUserSpecificTokenPreference())) {
             Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
@@ -103,8 +104,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
+            Log.i(TAG,"response: "+ response);
             if (!TextUtils.isEmpty(response)) {
-                Log.i("TAG", response);
                 if (response.equals("error")) {
                     showResetPasswordDialog();
                 } else {

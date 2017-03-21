@@ -6,4 +6,15 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_twenty">21dp</dimen>
+    <dimen name="margin_five">5dp</dimen>
+    <dimen name="margin_six">6dp</dimen>
+    <dimen name="margin_three">3dp</dimen>
+    <dimen name="margin_ten">10dp</dimen>
+    <dimen name="margin_fifteen">15sp</dimen>
+    <dimen name="padding_profile_screen">18dp</dimen>
+    <dimen name="padding_left_edit_text">15dp</dimen>
+    <dimen name="padding_top_edit_text">10dp</dimen>
+    <dimen name="padding_bottom_edit_text">10dp</dimen>
+
 </resources>

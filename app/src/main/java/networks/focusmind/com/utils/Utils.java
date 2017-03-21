@@ -1,6 +1,8 @@
 package networks.focusmind.com.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -11,6 +13,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +48,7 @@ public class Utils {
         }
         return jsonObject;
     }
+
 
     public static HashMap<String, String> getArrayListFromJson(Context context, int resId, String dataKey) {
         HashMap<String, String> map = new HashMap<>();
@@ -159,4 +163,17 @@ public class Utils {
 
     }
 
+
+    @SuppressLint("SimpleDateFormat")
+    public static String convertTimestampToDate(long timestamp,Context context) {
+        Timestamp tStamp = new Timestamp(timestamp);
+        SimpleDateFormat simpleDateFormat;
+        if (DateUtils.isToday(timestamp)) {
+            simpleDateFormat = new SimpleDateFormat("hh:mm a");
+            return /*context.getString(R.string.today)+" " + */simpleDateFormat.format(tStamp);
+        } else {
+            simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
+            return simpleDateFormat.format(tStamp);
+        }
+    }
 }

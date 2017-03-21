@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <com.github.siyamed.shapeimageview.mask.PorterShapeImageView
+        android:id="@+id/ivProfile"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/margin_ten"
+        app:siShape="@drawable/bubble"
+        android:layout_centerVertical="true"
+        app:siBorderColor="@color/finish_btn_color"
+        app:siBorderWidth="2dp"
+        android:background="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/first_char_tv"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+         android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/margin_ten"
+        android:textAllCaps="true"
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/leftbubbleContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/ivProfile"
+        android:layout_marginStart="@dimen/margin_five"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        android:background="@drawable/chat_incoming"
+        android:padding="@dimen/margin_five" >
+
+        <TextView
+            android:id="@+id/textViewMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:maxWidth="250dp"
+            android:text="Message"
+            android:layout_marginLeft="@dimen/margin_five"
+            android:layout_marginStart="@dimen/margin_five"
+            android:textColor="@color/chat_txt_color"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/imageViewImageMessage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="2dp"
+            android:src="@drawable/thumbnail_default"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/fileView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="200dp"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:orientation="vertical"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_five">
+
+                <ImageView
+                    android:id="@+id/iv_file_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/margin_five"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:id="@+id/fileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="200dp"
+                    android:layout_toEndOf="@id/iv_file_icon"
+                    android:layout_toStartOf="@+id/layout_file_download"
+                    android:layout_marginEnd="@dimen/margin_five"
+                    android:layout_marginStart="@dimen/margin_five"
+                    android:textColor="@color/chat_txt_color"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/margin_fifteen" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_file_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true" >
+
+                    <ImageView
+                        android:id="@+id/iv_file_download"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/download"
+                        android:layout_centerVertical="true"
+                        />
+
+
+                    <ProgressBar
+                        android:id="@+id/progress_background"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:progress="100"
+                        android:visibility="gone"
+                        android:rotation="-90"
+                        android:padding="@dimen/margin_five"
+                        android:indeterminate="false"
+                        android:progressDrawable="@drawable/circle_progress_background" />
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_centerInParent="true"
+                        android:max ="100"
+                        android:progress="100"
+                        android:visibility="gone"
+                        android:rotation="-90"
+                        android:padding="@dimen/margin_five"
+                        android:indeterminate="false"
+                        android:progressDrawable="@drawable/circle_progress_foreground" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_file_extension"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_five"
+                android:textColor="@android:color/darker_gray"
+                />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/leftbubbleContainer"
+        android:layout_below="@+id/leftbubbleContainer"
+        android:layout_marginTop="@dimen/margin_ten"
+        android:text="Time"
+        android:textColor="@color/chat_time_txt_color"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/imageViewmessageTicks"
+        android:layout_width="15dp"
+        android:layout_height="12dp"
+        android:layout_alignRight="@+id/leftbubbleContainer"
+        android:layout_below="@+id/leftbubbleContainer"
+        android:layout_marginTop="2dp"
+        android:src="@drawable/iconsent"
+        android:visibility="invisible" />
+
+</RelativeLayout>

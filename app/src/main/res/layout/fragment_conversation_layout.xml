@@ -11,21 +11,108 @@
         android:paddingBottom="55dp"
         android:clipChildren="false" />
 
-    <EditText
-        android:id="@+id/add_message"
-        android:layout_width="318dp"
+
+    <LinearLayout
+        android:id="@+id/linearLayoutFooter"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:hint="Add Message" />
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/send_message"
-        android:layout_width="80dp"
-        android:layout_height="35dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:drawableRight="@android:drawable/ic_menu_send"
-        android:text="Send" />
+        <TextView
+            android:id="@+id/tv_sending"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="@string/sending"
+            android:visibility="gone"
+            android:textStyle="italic"
+            android:gravity="right"
+            android:paddingRight="@dimen/margin_ten"
+            />
+
+        <RelativeLayout
+            android:id="@+id/relativeBottomArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#f7f7f7" >
+
+            <!-- <ImageButton
+                 android:id="@+id/buttonSendSmiley"
+                 android:layout_width="40dp"
+                 android:layout_height="40dp"
+                 android:layout_alignBottom="@+id/add_message"
+                 android:adjustViewBounds="true"
+                 android:background="?android:selectableItemBackground"
+                 android:padding="6dp"
+                 android:scaleType="fitCenter"
+                 android:src="@drawable/smiley_button"
+                 android:visibility="gone"
+                 />-->
+
+            <EditText
+                android:id="@+id/add_message"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:autoLink="web"
+                android:layout_margin="@dimen/margin_five"
+                android:ems="10"
+                android:paddingStart="@dimen/margin_five"
+                android:inputType="textCapSentences|textMultiLine"
+                android:linksClickable="true"
+                android:maxLines="3"
+                android:layout_toLeftOf="@+id/relativeSend"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/round_corner"
+                android:scrollbars="vertical"
+                />
+
+
+            <RelativeLayout
+                android:id="@+id/relativeSend"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/margin_five"
+                android:layout_alignParentEnd="true"
+                >
+
+                <!-- <ImageView
+                     android:id="@+id/buttonCamera"
+                     android:layout_width="40dp"
+                     android:layout_height="40dp"
+                     android:padding="2dp"
+                     android:layout_centerInParent="true"
+                     android:src="@drawable/ic_camera"
+                     />-->
+
+                <ImageView
+                    android:id="@+id/send_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/chat_send"
+                    />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <!-- <EditText
+         android:id="@+id/add_message"
+         android:layout_width="318dp"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:hint="Add Message" />
+
+     <Button
+         android:id="@+id/send_message"
+         android:layout_width="80dp"
+         android:layout_height="35dp"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentBottom="true"
+         android:background="@color/colorPrimary"
+         android:drawableRight="@android:drawable/ic_menu_send"
+         android:text="Send" />-->
 
 </RelativeLayout>

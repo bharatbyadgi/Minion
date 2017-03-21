@@ -1,6 +1,7 @@
 package networks.focusmind.com.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -15,12 +16,15 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.tubb.smrv.SwipeMenuLayout;
+import com.tubb.smrv.SwipeMenuRecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,10 +34,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import networks.focusmind.com.VolleyConstants.VolleyConstants;
+import networks.focusmind.com.activity.EventDetailActivity;
 import networks.focusmind.com.activity.HomeActivity;
 import networks.focusmind.com.minion.R;
 import networks.focusmind.com.model.EventDetailDataModel;
 import networks.focusmind.com.request.HandleVolleyRequest;
+import networks.focusmind.com.utils.StringConstants;
 import networks.focusmind.com.utils.Utils;
 
 import static android.support.v7.widget.helper.ItemTouchHelper.LEFT;
@@ -45,7 +51,7 @@ public class EventDetailsFragment extends BaseFragment {
 
     private Context mContext;
     private String mPageDataUrl;
-    private RecyclerView mRecyclerView;
+    private SwipeMenuRecyclerView mRecyclerView;
 
 
     public static EventDetailsFragment newInstance(Context context, String pageDataUrl) {
@@ -61,7 +67,7 @@ public class EventDetailsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_event_layout, container, false);
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.event_page_recycler_view);
+        mRecyclerView = (SwipeMenuRecyclerView) rootView.findViewById(R.id.event_page_recycler_view);
         handleDataCall();
         return rootView;
     }
@@ -109,14 +115,16 @@ public class EventDetailsFragment extends BaseFragment {
         }
     }
 
+
+    EventDetailRecyclerAdapter eventDetailRecyclerAdapter;
     private void setUpRecyclerView(final ArrayList<EventDetailDataModel> eventDetailDataModelList) {
-        final EventDetailRecyclerAdapter eventDetailRecyclerAdapter = new EventDetailRecyclerAdapter(eventDetailDataModelList);
+        eventDetailRecyclerAdapter = new EventDetailRecyclerAdapter(eventDetailDataModelList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         VerticalSpaceItemDecoration verticalSpaceItemDecoration = new VerticalSpaceItemDecoration(25);
         mRecyclerView.setAdapter(eventDetailRecyclerAdapter);
         mRecyclerView.addItemDecoration(verticalSpaceItemDecoration);
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, LEFT | ItemTouchHelper.RIGHT) {
+        /*ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -177,7 +185,7 @@ public class EventDetailsFragment extends BaseFragment {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
+*/
     }
 
 
@@ -196,29 +204,45 @@ public class EventDetailsFragment extends BaseFragment {
         }
 
         @Override
-        public void onBindViewHolder(EventsDetailViewHolder holder, final int position) {
-            holder.eventName.setText(mEventDetailDataModelList.get(position).getEventName());
-            holder.eventDate.setText(mEventDetailDataModelList.get(position).getEventCreatedTime());
-            if (mEventDetailDataModelList.get(position).getHasConversation()) {
-                holder.conversationTv.setText("View Conversation");
+        public void onBindViewHolder(final EventsDetailViewHolder holder, final int position) {
+
+            SwipeMenuLayout itemView = (SwipeMenuLayout) holder.itemView;
+            final EventDetailDataModel eventDetailDataModel = mEventDetailDataModelList.get(position);
+            itemView.setSwipeEnable(true);
+            itemView.setOpenInterpolator(mRecyclerView.getOpenInterpolator());
+            itemView.setCloseInterpolator(mRecyclerView.getCloseInterpolator());
+
+            holder.eventName.setText(eventDetailDataModel.getEventName());
+            holder.eventDate.setText(eventDetailDataModel.getEventCreatedTime());
+            if (eventDetailDataModel.getHasConversation()) {
+                // holder.conversationTv.setText("View Conversation");
             }
-            final View currentView = holder.itemView;
+            holder.btDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mEventDetailDataModelList.remove(holder.getAdapterPosition());
+                    eventDetailRecyclerAdapter.notifyItemRemoved(holder.getAdapterPosition());
+                }
+            });
 
             holder.conversationTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     HomeActivity homeActivity = (HomeActivity) getActivity();
-                    homeActivity.openConversationFragment(mEventDetailDataModelList.get(position).getEventID(), "Conversation");
+                    homeActivity.openConversationFragment(eventDetailDataModel.getEventID(), "Conversation");
                 }
             });
 
-            currentView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showDetails(currentView, mEventDetailDataModelList.get(position));
+                    //  showDetails(currentView, mEventDetailDataModelList.get(position));
+                    Intent intentEventDetails = new Intent(getActivity(),EventDetailActivity.class);
+                    intentEventDetails.putExtra(StringConstants.PARAM_EVENT_DETAIL,
+                            eventDetailDataModel);
+                    startActivity(intentEventDetails);
                 }
             });
-
         }
 
         @Override
@@ -229,7 +253,7 @@ public class EventDetailsFragment extends BaseFragment {
     }
 
 
-    private void showDetails(View view, EventDetailDataModel eventDetailDataModel) {
+  /*  private void showDetails(View view, EventDetailDataModel eventDetailDataModel) {
         View detailView = view.findViewById(R.id.detail_card);
         View collapsedView = view.findViewById(R.id.collapsed_event_card);
         if (view.findViewById(R.id.collapsed_event_card).getVisibility() == View.VISIBLE) {
@@ -248,19 +272,20 @@ public class EventDetailsFragment extends BaseFragment {
             detailView.setVisibility(View.GONE);
             collapsedView.setVisibility(View.VISIBLE);
         }
-    }
+    }*/
 
     private class EventsDetailViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView eventName;
-        public TextView eventDate;
-        public TextView conversationTv;
-
-        public EventsDetailViewHolder(View itemView) {
+        TextView eventName;
+        TextView eventDate;
+        ImageView conversationTv;
+        View btDelete;
+        EventsDetailViewHolder(View itemView) {
             super(itemView);
             eventName = (TextView) itemView.findViewById(R.id.event_name);
             eventDate = (TextView) itemView.findViewById(R.id.event_date);
-            conversationTv = (TextView) itemView.findViewById(R.id.conversation_tv);
+            conversationTv = (ImageView) itemView.findViewById(R.id.img_chat);
+            btDelete = itemView.findViewById(R.id.btDelete);
         }
     }
 
@@ -268,7 +293,7 @@ public class EventDetailsFragment extends BaseFragment {
 
         private final int verticalSpaceHeight;
 
-        public VerticalSpaceItemDecoration(int verticalSpaceHeight) {
+        VerticalSpaceItemDecoration(int verticalSpaceHeight) {
             this.verticalSpaceHeight = verticalSpaceHeight;
         }
 

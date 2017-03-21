@@ -5,4 +5,17 @@
     <color name="colorAccent">#2b99ce</color>
     <color name="white">#ffffff</color>
     <color name="off_white">#f2f2f2</color>
+     <color name="finish_btn_color">#66c7c9</color>
+    <color name="pwd_valid_green">#00a651</color>
+
+    <color name="chat_txt_color">#2d4559</color>
+    <color name="chat_time_txt_color">#afafaf</color>
+    <color name="chat_green">#7ed321</color>
+    <color name="red">#ffff4444</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="separator">#abc1d4</color>
+    <color name="save_text">#15a7bb</color>
+    <color name="step1hint">#969696</color>
+
 </resources>

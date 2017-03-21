@@ -12,11 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.github.siyamed.shapeimageview.mask.PorterShapeImageView;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -61,9 +65,8 @@ public class ConversationFragment extends BaseFragment {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(linearLayoutManager);
-        VerticalSpaceItemDecoration verticalSpaceItemDecoration = new VerticalSpaceItemDecoration(25);
-
-        mRecyclerView.addItemDecoration(verticalSpaceItemDecoration);
+        // VerticalSpaceItemDecoration verticalSpaceItemDecoration = new VerticalSpaceItemDecoration(25);
+        // mRecyclerView.addItemDecoration(verticalSpaceItemDecoration);
 
         RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
             @Override
@@ -84,7 +87,7 @@ public class ConversationFragment extends BaseFragment {
         mRecyclerView.setAdapter(mConversationRecyclerAdapter);
 
         final EditText mMessageText = (EditText) rootView.findViewById(R.id.add_message);
-        Button sendButton = (Button) rootView.findViewById(R.id.send_message);
+        ImageView sendButton = (ImageView) rootView.findViewById(R.id.send_message);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,26 +203,74 @@ public class ConversationFragment extends BaseFragment {
         }
     }
 
-    private class ConversationRecyclerAdapter extends RecyclerView.Adapter<ConversationViewHolder> {
+    private class ConversationRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-        public ConversationRecyclerAdapter() {
+        ConversationRecyclerAdapter() {
         }
 
         @Override
-        public ConversationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.conversation_list_item, parent, false);
-            return new ConversationViewHolder(view);
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            /*View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.conversation_list_item, parent, false);
+            return new ConversationViewHolder(view);*/
+            switch (viewType) {
+               /* case ROW_TYPE_LOAD_EARLIER_MESSAGES:
+                    return new LoadEarlierMsgsViewHolder(mLayoutInflater.inflate(R.layout
+                            .chat_load_more_messaages, parent, false));*/
+                case ROW_TYPE_SENDER:
+                    return new SenderMsgViewHolder(LayoutInflater.from(parent.getContext()).
+                            inflate(R.layout.oneonone_chat_bubble_right,
+                                    parent, false));
+                case ROW_TYPE_RECEIVER:
+                    return new ReceiverMsgViewHolder(LayoutInflater.from(parent.getContext()).
+                            inflate(R.layout.oneonone_chat_bubble_left, parent, false));
+                default:
+                    return null;
+            }
+
         }
 
         @Override
-        public void onBindViewHolder(ConversationViewHolder holder, final int position) {
-            holder.conversationMsg.setText(mConversationDataModelArrayList.get(position).getLatestMessage());
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+           /* holder.conversationMsg.setText(mConversationDataModelArrayList.get(position).getLatestMessage());
             holder.conversationCreator.setText(mConversationDataModelArrayList.get(position).getCreator());
             if (!TextUtils.isEmpty(mConversationDataModelArrayList.get(position).getCreatedTime())) {
                 holder.conversationCreatedTime.setText((new Date(Long.parseLong(mConversationDataModelArrayList.get(position).getCreatedTime()))).toString());
             }
             if (!TextUtils.isEmpty(mConversationDataModelArrayList.get(position).getCreator())) {
                 holder.firstCharTv.setText(mConversationDataModelArrayList.get(position).getCreator().charAt(0) + "");
+            }*/
+
+
+            switch (getItemViewType(position)) {
+
+                case ROW_TYPE_SENDER:
+                    final SenderMsgViewHolder senderMsgViewHolder = (SenderMsgViewHolder) holder;
+                    final ConversationDataModel message = mConversationDataModelArrayList.get(position );
+
+                    senderMsgViewHolder.message.setText(message.getLatestMessage());
+                    senderMsgViewHolder.timestamp.setText(Utils.convertTimestampToDate(
+                            Long.parseLong(message.getCreatedTime()),getContext()));
+
+                    if (!TextUtils.isEmpty(mConversationDataModelArrayList.get(position).getCreator())) {
+                        senderMsgViewHolder.firstCharTv.setText(mConversationDataModelArrayList.get(position).getCreator().charAt(0) + "");
+                    }
+                    break;
+
+
+                case ROW_TYPE_RECEIVER:
+                    final ReceiverMsgViewHolder receiverMsgViewHolder = (ReceiverMsgViewHolder)holder;
+                    final ConversationDataModel messageReceiver = mConversationDataModelArrayList.get(position);
+
+                    receiverMsgViewHolder.message.setText(messageReceiver.getLatestMessage());
+                    receiverMsgViewHolder.timestamp.setText(Utils.convertTimestampToDate(
+                            Long.parseLong(messageReceiver.getCreatedTime()),getContext()));
+
+                    if (!TextUtils.isEmpty(mConversationDataModelArrayList.get(position).getCreator())) {
+                        receiverMsgViewHolder.firstCharTv.setText(mConversationDataModelArrayList.get(position).getCreator().charAt(0) + "");
+                    }
+
+                    break;
+
             }
         }
 
@@ -228,9 +279,125 @@ public class ConversationFragment extends BaseFragment {
             return mConversationDataModelArrayList.size();
         }
 
+
+        @Override
+        public int getItemViewType(int position) {
+
+           /* if (position ==  0) {
+                return ROW_TYPE_LOAD_EARLIER_MESSAGES; // row load earlier messages
+            } else*/
+            //if (mConversationDataModelArrayList.get(position).getCreator()
+            //  .equalsIgnoreCase(mSharedPref.getUserName())) {
+            if(position % 2 == 0)
+            {
+                return ROW_TYPE_SENDER; // sender row;
+            } else {
+                return ROW_TYPE_RECEIVER; // receiver row;
+            }
+        }
     }
 
-    private class ConversationViewHolder extends RecyclerView.ViewHolder {
+
+    static class SenderMsgViewHolder extends RecyclerView.ViewHolder {
+
+        TextView message;
+
+        TextView timestamp;
+
+        ImageView image;
+
+        ImageView msgtick;
+        PorterShapeImageView imageProfile;
+
+        TextView fileName;
+        LinearLayout fileView;
+        ImageView fileIcon;
+        TextView fileExtension;
+        ImageView fileDownload;
+        ProgressBar progress;
+        ProgressBar progressBackground;
+        public TextView firstCharTv;
+
+
+        public SenderMsgViewHolder(View view) {
+            super(view);
+            // ButterKnife.bind(this, view);
+
+            message = (TextView) view.findViewById(R.id.textViewMessage);
+            timestamp = (TextView) view.findViewById(R.id.textViewTime);
+            image = (ImageView) view.findViewById(R.id.imageViewImageMessage);
+            // msgtick = (ImageView) view.findViewById(R.id.imageViewmessageTicks);
+            imageProfile = (PorterShapeImageView) view.findViewById(R.id.ivProfile);
+            firstCharTv = (TextView) itemView.findViewById(R.id.first_char_tv);
+
+            fileName = (TextView) view.findViewById(R.id.fileName);
+            fileView = (LinearLayout) view.findViewById(R.id.fileView);
+            fileIcon = (ImageView) view.findViewById(R.id.iv_file_icon);
+            fileExtension = (TextView) view.findViewById(R.id.tv_file_extension);
+            fileDownload = (ImageView) view.findViewById(R.id.iv_file_download);
+            progress = (ProgressBar) view.findViewById(R.id.progress);
+            progressBackground = (ProgressBar) view.findViewById(R.id.progress_background);
+
+        }
+    }
+
+
+    static class ReceiverMsgViewHolder extends RecyclerView.ViewHolder {
+
+        //@BindView(R.id.textViewMessage)
+        TextView message;
+
+        // @BindView(R.id.textViewTime)
+        TextView timestamp;
+
+        // @BindView(R.id.imageViewImageMessage)
+        ImageView image;
+
+        //  @BindView(R.id.imageViewmessageTicks)
+        ImageView msgtick;
+
+        //@BindView(R.id.ivProfile)
+        PorterShapeImageView imageProfile;
+
+        TextView fileName;
+        LinearLayout fileView;
+        ImageView fileIcon;
+        public TextView firstCharTv;
+
+        TextView fileExtension;
+        ImageView fileDownload;
+        ProgressBar progress;
+        ProgressBar progressBackground;
+
+        public ReceiverMsgViewHolder(View view) {
+            super(view);
+            //ButterKnife.bind(this, view);
+
+            message = (TextView) view.findViewById(R.id.textViewMessage);
+            timestamp = (TextView) view.findViewById(R.id.textViewTime);
+            image = (ImageView) view.findViewById(R.id.imageViewImageMessage);
+            msgtick = (ImageView) view.findViewById(R.id.imageViewmessageTicks);
+            imageProfile = (PorterShapeImageView) view.findViewById(R.id.ivProfile);
+            firstCharTv = (TextView) itemView.findViewById(R.id.first_char_tv);
+
+            fileName = (TextView) view.findViewById(R.id.fileName);
+            fileView = (LinearLayout) view.findViewById(R.id.fileView);
+            fileIcon = (ImageView) view.findViewById(R.id.iv_file_icon);
+            fileExtension = (TextView) view.findViewById(R.id.tv_file_extension);
+            fileDownload = (ImageView) view.findViewById(R.id.iv_file_download);
+            progress = (ProgressBar) view.findViewById(R.id.progress);
+            progressBackground = (ProgressBar) view.findViewById(R.id.progress_background);
+
+        }
+    }
+
+
+
+    private static final int ROW_TYPE_LOAD_EARLIER_MESSAGES = 0;
+    private static final int ROW_TYPE_SENDER = 1;
+    private static final int ROW_TYPE_RECEIVER = 2;
+
+   /* private class ConversationViewHolder extends RecyclerView.ViewHolder {
 
         public TextView conversationMsg;
         public TextView conversationCreator;
@@ -245,9 +412,9 @@ public class ConversationFragment extends BaseFragment {
             firstCharTv = (TextView) itemView.findViewById(R.id.first_char_tv);
 
         }
-    }
+    }*/
 
-    public class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
+  /*  public class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
 
         private final int verticalSpaceHeight;
 
@@ -261,5 +428,5 @@ public class ConversationFragment extends BaseFragment {
             outRect.bottom = verticalSpaceHeight;
         }
     }
-
+*/
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.tubb.smrv.SwipeMenuRecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/event_page_recycler_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
+    android:layout_margin="@dimen/margin_five"
     android:clipChildren="false" />
