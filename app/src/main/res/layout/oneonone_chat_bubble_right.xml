@@ -44,9 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/margin_five"
             android:maxWidth="250dp"
-            android:text="ghgghgjhgjhgj"
-            android:gravity="right"
+             android:gravity="right"
             android:layout_marginEnd="@dimen/margin_five"
             android:textColor="@color/chat_txt_color"
             android:textSize="16sp" />

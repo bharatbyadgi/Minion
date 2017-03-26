@@ -1,6 +1,8 @@
 package networks.focusmind.com.request;
 
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -15,13 +17,37 @@ import java.util.Map;
 import networks.focusmind.com.VolleyConstants.VolleyConstants;
 import networks.focusmind.com.application.MinionApplication;
 
+
 public class HandleVolleyRequest {
+    static String TAG = "HandleVolleyRequest";
 
     public static void getEventsData(String uname, JSONObject jsonObject, Response.Listener<JSONObject> succesListener, Response.ErrorListener errorListener) {
         String tag_json_obj = "getEventsData";
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, VolleyConstants.SERVER_URL + VolleyConstants.GET_EVENTS + "/" + uname, jsonObject, succesListener, errorListener);
         MinionApplication.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
+
+
+    public static void getEventsTypeData(String uname, JSONObject jsonObject, Response.Listener<JSONObject> succesListener, Response.ErrorListener errorListener) {
+        String tag_json_obj = "getEventsTypeData";
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, VolleyConstants.SERVER_URL + VolleyConstants.GET_EVENT_TYPE + "/" + uname, jsonObject, succesListener, errorListener);
+        MinionApplication.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+    }
+
+    public static void deleteEvent(int eventId, JSONObject jsonObject, Response.Listener<JSONObject> succesListener, Response.ErrorListener errorListener) {
+        String tag_json_obj = "deleteEvent";
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.DELETE,
+                VolleyConstants.SERVER_URL + VolleyConstants.DELETE_EVENT + "/" + eventId, jsonObject, succesListener, errorListener);
+        MinionApplication.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+    }
+
+
+    public static void editEvent(int eventId, JSONObject jsonObject, Response.Listener<JSONObject> succesListener, Response.ErrorListener errorListener) {
+        String tag_json_obj = "editEvent";
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.PUT, VolleyConstants.SERVER_URL + VolleyConstants.EDIT_EVENT + "/" + eventId, jsonObject, succesListener, errorListener);
+        MinionApplication.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+    }
+
 
     public static void getFacilityData(String uname, JSONObject jsonObject, Response.Listener<JSONObject> succesListener, Response.ErrorListener errorListener) {
         String tag_json_obj = "getFacilityData";
@@ -53,9 +79,12 @@ public class HandleVolleyRequest {
         MinionApplication.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
+
     public static void getConversationData(int eventId, int startIndex, Response.Listener<JSONObject> succesListener, Response.ErrorListener errorListener) {
+        Log.d(TAG,"url: "+VolleyConstants.SERVER_URL + VolleyConstants.GET_CONVERSATION_DETAILS + "/" + eventId + "/" + startIndex);
         String tag_json_obj = "getConversationData";
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, VolleyConstants.SERVER_URL + VolleyConstants.GET_CONVERSATION_DETAILS + "/" + eventId + "/" + startIndex, null, succesListener, errorListener);
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                VolleyConstants.SERVER_URL + VolleyConstants.GET_CONVERSATION_DETAILS + "/" + eventId + "/" + startIndex, null, succesListener, errorListener);
         MinionApplication.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
     }
 
@@ -84,6 +113,9 @@ public class HandleVolleyRequest {
     }
 
     public static void postConversationData(JSONObject conversationJsonObject, Response.Listener<JSONObject> succesListener, Response.ErrorListener errorListener) {
+        Log.d(TAG,"url: "+VolleyConstants.SERVER_URL + VolleyConstants.ADD_CONVERSATION_DETAILS );
+        Log.d(TAG,"conversationJsonObject: "+conversationJsonObject );
+
         String tag_json_obj = "postData";
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, VolleyConstants.SERVER_URL + VolleyConstants.ADD_CONVERSATION_DETAILS, conversationJsonObject, succesListener, errorListener);
         MinionApplication.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);

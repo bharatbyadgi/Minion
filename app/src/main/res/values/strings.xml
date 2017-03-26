@@ -8,6 +8,10 @@
     <string name="sending">sending...</string>
     <string name="save">Save</string>
     <string name="colon">:</string>
+    <string name="empty_txt_msg">Please enter some message</string>
+    <string name="msg_event_updated">Event updated successfully</string>
 
+    <string name="event_type">Select Event Type</string>
+    <string name="close">Close</string>
 
 </resources>

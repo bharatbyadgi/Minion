@@ -27,8 +27,8 @@
             android:visibility="gone"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/iv_edit"
             android:src="@android:drawable/ic_menu_edit"
             android:layout_alignParentEnd="true"
@@ -40,9 +40,11 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tblProfileEducation">
+        android:id="@+id/tblProfileEducation"
+        android:layout_marginRight="@dimen/padding_top_edit_text" >
 
-        <TableRow
+
+    <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/tblrow_name"
@@ -75,7 +77,7 @@
 
                 <EditText
                     android:id="@+id/et_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:textColor="@color/step1hint"
@@ -121,7 +123,7 @@
 
                 <EditText
                     android:id="@+id/et_description"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:textColor="@color/step1hint"

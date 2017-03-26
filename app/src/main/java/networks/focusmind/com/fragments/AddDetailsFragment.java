@@ -1,6 +1,8 @@
 package networks.focusmind.com.fragments;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -11,25 +13,38 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 
+import networks.focusmind.com.VolleyConstants.VolleyConstants;
 import networks.focusmind.com.minion.R;
 import networks.focusmind.com.model.BaseDataModel;
+import networks.focusmind.com.model.EventTypeDetails;
+import networks.focusmind.com.model.EventTypeModel;
 import networks.focusmind.com.request.HandleVolleyRequest;
 import networks.focusmind.com.storage.SharedPreferenceManager;
+import networks.focusmind.com.utils.Utils;
 
 public class AddDetailsFragment extends BaseFragment {
 
@@ -96,8 +111,7 @@ public class AddDetailsFragment extends BaseFragment {
                     }
                 } else {
                     for (HashMap.Entry<String, String> hintText : mDataMap.entrySet()) {
-                        String dispName = "";
-                        dispName = hintText.getKey();
+                        final String dispName = hintText.getKey();
                         TextInputLayout stringInputLayout = new TextInputLayout(getActivity());
                         stringInputLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                         LinearLayout.LayoutParams stringLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -120,6 +134,28 @@ public class AddDetailsFragment extends BaseFragment {
                             stringEditText.setText(amcId+"");
                             stringEditText.setEnabled(false);
                         }
+
+                        /**
+                         * only for event type in add event
+                         */
+                        if(dispName.equalsIgnoreCase("Event Type")) {
+                            // stringEditText.setActivated(false);
+                            stringEditText.setFocusable(false);
+                        }
+                        stringEditText.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                if(dispName.equalsIgnoreCase("Event Type")){
+
+                                    if(eventTypeModel == null)
+                                        eventListAPI(v);
+                                    else
+                                        showEventTypeDialog((EditText) v,eventTypeModel.getEventtypedetails() );
+
+                                }
+                            }
+                        });
                         mLinearLayout.addView(stringInputLayout);
                     }
                 }
@@ -147,8 +183,90 @@ public class AddDetailsFragment extends BaseFragment {
         return rootView;
     }
 
+
+    private void eventListAPI(final View v) {
+
+        showProgressDialog("Fetching..");
+        if (VolleyConstants.IS_OFFLINE) {
+            cancelProgressDialog();
+
+        } else {
+            HandleVolleyRequest.getEventsTypeData("amsuser", new JSONObject(), new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    cancelProgressDialog();
+                    Type type = new TypeToken<EventTypeModel>() {}.getType();
+                    eventTypeModel = new Gson().fromJson(response.toString(),type);
+                    showEventTypeDialog((EditText) v,eventTypeModel.getEventtypedetails());
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    cancelProgressDialog();
+                    Toast.makeText(getContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    EventTypeModel eventTypeModel;
+    String eventTypeId;
+
+    private void showEventTypeDialog(final EditText edtView, final EventTypeDetails[] eventTypeDetailsList){
+
+        final String[] popupEventTypeNameList = new String[eventTypeDetailsList.length];
+        final String[] popupEventTypeIdList = new String[eventTypeDetailsList.length];
+
+        for (int i = 0; i < eventTypeDetailsList.length; i++){
+
+            EventTypeDetails eventTypeDetails = eventTypeDetailsList[i];
+
+            popupEventTypeNameList[i] = eventTypeDetails.getEventTypeName();
+            popupEventTypeIdList[i] = eventTypeDetails.getEventTypeID();
+
+        }
+
+        final Dialog dialog = new Dialog(getActivity());
+        View view = getActivity().getLayoutInflater().inflate(R.layout.popup_list_dialog, null);
+        ((TextView)view.findViewById(R.id.txtPopupHeader)).setText(getString(R.string.event_type));
+        ListView lvPopup = (ListView) view.findViewById(R.id.lstPopUp);
+        Button close = (Button) view.findViewById(R.id.popupClose);
+        lvPopup.setAdapter(new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, popupEventTypeNameList){
+            public View getView(int position, View convertView, android.view.ViewGroup parent) {
+                TextView v = (TextView) super.getView(position, convertView, parent);
+                v.setTextSize(18);
+                v.setPadding(16,10,0,10);
+                return v;
+            }
+        });
+        lvPopup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                edtView.setText(popupEventTypeNameList[position].toString());
+                dialog.cancel();
+                dialog.dismiss();
+
+                eventTypeId = popupEventTypeIdList[position];
+
+            }
+        });
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                dialog.dismiss();
+            }
+        });
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
     private void handleSaveButton() {
         JSONObject postObject = new JSONObject();
+
         for (int idx = 0; idx < mLinearLayout.getChildCount(); idx++) {
             TextInputLayout textInputLayout = (TextInputLayout) mLinearLayout.getChildAt(idx);
             EditText editText = (EditText) ((FrameLayout) textInputLayout.getChildAt(0)).getChildAt(0);
@@ -179,26 +297,30 @@ public class AddDetailsFragment extends BaseFragment {
                         }
                     }
                 } else {
-                    postObject.put(mDataMap.get(textInputLayout.getHint().toString()), editText.getText().toString());
+                    if(textInputLayout.getHint().toString().trim().equals("Event Type"))
+                        postObject.put(mDataMap.get(textInputLayout.getHint().toString()),eventTypeId);
+                    else
+                        postObject.put(mDataMap.get(textInputLayout.getHint().toString()), editText.getText().toString());
+                    Log.d(TAG, "postObject: "+postObject);
+
                 }
             } catch (JSONException e) {
                 Log.e("PostData", "Something went wrong!!");
             }
         }
         if (postObject.length() > 0) {
-            showProgressDialog("Saving..");
             HandleVolleyRequest.postDataToServer(getUrl(), postObject, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     cancelProgressDialog();
                     updateFragment(response);
                     getActivity().onBackPressed();
-                    Log.i("success", "Success");
+                    Log.d(TAG, "Success");
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.e("err", "Error");
+                    Log.e(TAG, "Error");
                     cancelProgressDialog();
                     Toast.makeText(getContext(), "Save Failed..", Toast.LENGTH_LONG).show();
                     getActivity().onBackPressed();
@@ -220,6 +342,8 @@ public class AddDetailsFragment extends BaseFragment {
             }
         }
     }
+
+    String TAG = this.getClass().getSimpleName();
 
     private void showSetPasswordDialog(final String userId) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
@@ -281,7 +405,7 @@ public class AddDetailsFragment extends BaseFragment {
                 url = "facility/api/ams/facility/v1/facility";
                 break;
             case "Add Event":
-                url = "";
+                url = "events/api/ams/events/v1/events";
                 break;
             case "Add Asset":
                 url = "assetmgmt/api/ams/assets/v1/";

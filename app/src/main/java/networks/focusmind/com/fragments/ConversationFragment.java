@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class ConversationFragment extends BaseFragment {
     private boolean mAllDataFetched = false;
     private ConversationRecyclerAdapter mConversationRecyclerAdapter;
     private SharedPreferenceManager mSharedPref;
+    String TAG = this.getClass().getSimpleName();
 
     public static ConversationFragment newInstance(int eventId) {
         Bundle args = new Bundle();
@@ -94,9 +96,13 @@ public class ConversationFragment extends BaseFragment {
                 if (!TextUtils.isEmpty(mMessageText.getText().toString())) {
                     sendMessage(mMessageText.getText().toString());
                     mMessageText.setText("");
+                }else{
+                    Utils.showToast(getContext(),getString(R.string.empty_txt_msg));
                 }
             }
         });
+
+        Log.d(TAG,"eventId: "+getArguments().getInt("eventId"));
 
         mConversationDataModelArrayList = new ArrayList<>();
         if (null != getArguments() && getArguments().containsKey("eventId")) {
@@ -162,6 +168,7 @@ public class ConversationFragment extends BaseFragment {
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            Log.e(TAG,"onErrorResponse: "+error.toString());
                             mIsLoading = false;
                             cancelProgressDialog();
                             Toast.makeText(getContext(), "Something went wrong.", Toast.LENGTH_SHORT).show();
@@ -266,6 +273,8 @@ public class ConversationFragment extends BaseFragment {
                             Long.parseLong(messageReceiver.getCreatedTime()),getContext()));
 
                     if (!TextUtils.isEmpty(mConversationDataModelArrayList.get(position).getCreator())) {
+
+                        receiverMsgViewHolder.userName.setText(mConversationDataModelArrayList.get(position).getCreator());
                         receiverMsgViewHolder.firstCharTv.setText(mConversationDataModelArrayList.get(position).getCreator().charAt(0) + "");
                     }
 
@@ -346,6 +355,7 @@ public class ConversationFragment extends BaseFragment {
 
         //@BindView(R.id.textViewMessage)
         TextView message;
+        TextView userName;
 
         // @BindView(R.id.textViewTime)
         TextView timestamp;
@@ -373,6 +383,7 @@ public class ConversationFragment extends BaseFragment {
             super(view);
             //ButterKnife.bind(this, view);
 
+            userName = (TextView) view.findViewById(R.id.tv_username);
             message = (TextView) view.findViewById(R.id.textViewMessage);
             timestamp = (TextView) view.findViewById(R.id.textViewTime);
             image = (ImageView) view.findViewById(R.id.imageViewImageMessage);

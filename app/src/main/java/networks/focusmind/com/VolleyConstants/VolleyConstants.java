@@ -2,7 +2,7 @@ package networks.focusmind.com.VolleyConstants;
 
 public class VolleyConstants {
 
-    public static boolean IS_OFFLINE = true;
+    public static boolean IS_OFFLINE = false;
     public static String URL = "http://182.18.139.159";
     public static String SERVER_URL = URL + ":8080/";
 
@@ -16,6 +16,10 @@ public class VolleyConstants {
     public static final String ADD_ASSET = SERVER_URL + "assetmgmt/api/ams/assets/v1";
     public static final String UPDATE_ASSET = SERVER_URL + "assetmgmt/api/ams/assets/v1/100";
     public static final String GET_EVENTS = "events/api/ams/events/v1/events";
+    public static final String GET_EVENT_TYPE = "events/api/ams/events/v1/eventtype";
+    public static final String DELETE_EVENT = "events/api/ams/events/v1/events";
+
+    public static final String EDIT_EVENT = "events/api/ams/events/v1/events";
     public static final String GET_AMC_DETAILS = "assetmgmt/api/ams/assets/v1/amc";
     public static final String GET_AMC_LIST = "";
     public static final String GET_FACILITY = "facility/api/ams/facility/v1";

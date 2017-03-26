@@ -37,5 +37,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.6.1'
     compile 'com.google.android.gms:play-services-vision:9.6.1'
     compile 'com.tubb.smrv:swipemenu-recyclerview:3.0.4'
+    compile 'joda-time:joda-time:2.9.7'
+    compile 'org.greenrobot:eventbus:3.0.0'
 
 }
